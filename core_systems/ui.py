@@ -51,6 +51,18 @@ class GameUI:
         self.button_sell_item = Button(self.root, text="Sell Item", command=self.sell_item)
         self.button_sell_item.pack()
 
+        self.label_npc_activities = Label(self.root, text="NPC Activities")
+        self.label_npc_activities.pack()
+
+        self.npc_activity_labels = {}
+        for npc in npcs:
+            label = Label(self.root, text=f"{npc.name}: {npc.get_activity('06:00')}")
+            label.pack()
+            self.npc_activity_labels[npc.name] = label
+
+        self.update_npc_activities("06:00")
+        self.root.after(60000, self.update_npc_activities)  # Update every in-game hour
+
         self.root.mainloop()
 
     def update_stats(self):
@@ -64,6 +76,24 @@ class GameUI:
     def grow_crop(self):
         self.player.grow_crop()
         self.update_stats()
+
+    def update_npc_activities(self, current_time):
+        activities = get_npc_activities(current_time)
+        for npc_name, activity in activities.items():
+            self.npc_activity_labels[npc_name].config(text=f"{npc_name}: {activity}")
+
+        next_time = self.get_next_time(current_time)
+        self.root.after(60000, lambda: self.update_npc_activities(next_time))  # Update every in-game hour
+
+    def get_next_time(self, current_time):
+        hours, minutes = map(int, current_time.split(":"))
+        minutes += 60
+        if minutes >= 60:
+            minutes = 0
+            hours += 1
+        if hours >= 24:
+            hours = 0
+        return f"{hours:02d}:{minutes:02d}"
 
     def raise_animal(self):
         self.player.raise_animal()

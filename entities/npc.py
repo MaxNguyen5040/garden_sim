@@ -12,6 +12,12 @@ class NPC:
             else:
                 print(f"{self.name} does not have a valid behavior defined.")
 
+    def generate_dynamic_schedule(self):
+        dynamic_schedule = self.base_schedule.copy()
+        if random.random() < 0.1:  # 10% chance of random event
+            dynamic_schedule["14:00"] = "Random event"
+        return dynamic_schedule
+
     def boost_plants(self, garden):
         print(f"{self.name} boosts plants in the garden.")
 

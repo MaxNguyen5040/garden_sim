@@ -3,6 +3,12 @@ from quests import quest_list
 from trading import Trader
 from weather import Weather
 import random 
+from garden import Garden
+from player import Player
+from ui import visualize_garden
+import matplotlib.pyplot as plt
+from ui import visualize_garden
+
 
 class GardenSim:
     def __init__(self):
@@ -11,6 +17,8 @@ class GardenSim:
         self.quests = quest_list()
         self.trader = Trader()
         self.weather = Weather()
+        plt.ion()
+        plt.show()
 
 
     def start_game(self):
@@ -20,13 +28,14 @@ class GardenSim:
             self.handle_choice(choice)
             for quest in self.quests:
                 quest.check_completion(self.garden, self.player)
-            if random.random() < 0.3:
+            if random.random() < 0.3:  # 30% chance of an event
                 event = random_event()
                 event.apply(self.garden)
                 print(f"Event: {event.name}")
             self.weather.change_weather()
             self.weather.affect_garden(self.garden)
             print(f"Weather: {self.weather.current_weather}")
+            visualize_garden(self.garden)
 
 
     def display_menu(self):
@@ -63,3 +72,7 @@ class GardenSim:
 
     def load_game(self):
         self.garden, self.player = load_game()
+
+
+sim = GardenSim()
+sim.start_game()

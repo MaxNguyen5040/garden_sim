@@ -14,5 +14,4 @@ class Quest:
 def quest_list():
     return [
         Quest("Grow 5 plants", lambda g, p: len(g.plants) >= 5, 10),
-        Quest("Harvest 10 plants", lambda g, p: p.resources["seeds"] >= 10, 15)
     ]

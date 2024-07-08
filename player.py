@@ -5,6 +5,18 @@ class Player:
         self.inventory = Inventory()
         self.skills = {"gardening": 1, "watering": 1, "harvesting": 1, "healing": 1}
         self.experience = 0
+        self.tools = []
+
+    def buy_tool(self, tool):
+        self.tools.append(tool)
+
+    def use_tool(self, tool_name, plant):
+        for tool in self.tools:
+            if tool.name == tool_name:
+                tool.use(plant)
+                print(f"Used {tool.name} on {plant.name}.")
+                return
+        print(f"No such tool: {tool_name}")
 
     def cure(self, plant):
         if self.inventory.items["medicine"] > 0:
@@ -63,3 +75,19 @@ class Player:
         self.skills["harvesting"] += 1
         self.experience -= 100
         print("Leveled up")
+
+    def sell_plant(self, plant):
+            if plant:
+                earnings = plant.growth_stage * 10  # Example calculation
+                self.money += earnings
+                print(f"Sold {plant.name} for {earnings} coins.")
+            else:
+                print("No mature plant to sell.")
+
+class Tool:
+    def __init__(self, name, effect):
+        self.name = name
+        self.effect = effect
+
+    def use(self, plant):
+        plant.affect_health(self.effect)

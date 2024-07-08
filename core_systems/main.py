@@ -1,6 +1,36 @@
 from marketplace import Marketplace
+from player_stats import PlayerStats
 
 market = Marketplace()
+
+
+player = PlayerStats("Player1")
+
+def perform_game_action(action):
+    if action == "grow_crop":
+        player.grow_crop()
+    elif action == "raise_animal":
+        player.raise_animal()
+    elif action == "collect_item":
+        player.collect_item()
+    elif action == "buy_item":
+        if player.spend_money(50):
+            print("Item bought successfully!")
+        else:
+            print("Not enough money!")
+    elif action == "sell_item":
+        player.add_money(20)
+    print(f"Current money: {player.money}")
+    print(f"Current experience: {player.experience}")
+    print(f"Current level: {player.level}")
+
+# Simulate some game actions
+perform_game_action("grow_crop")
+perform_game_action("raise_animal")
+perform_game_action("collect_item")
+perform_game_action("buy_item")
+perform_game_action("sell_item")
+
 
 # Function to interact with the marketplace
 def marketplace_interaction():

@@ -13,7 +13,17 @@ class CompanionManagement:
     def remove_companion(self, companion):
         self.available_companions.remove(companion)
 
-companion_management = CompanionManagement()
 bees = CompanionAnimal("Bees", "Pollination")
-companion_management.add_companion(bees)
-print(f"Available companions: {[companion.name for companion in companion_management.available_companions]}")
+raccoons = CompanionAnimal("Raccoons", "Steal your food")
+cats = CompanionAnimal("Cats", "Chase away pests")
+dogs = CompanionAnimal("Dogs", "Provide protection")
+birds = CompanionAnimal("Birds", "Scare off insects")
+butterflies = CompanionAnimal("Butterflies", "Help with pollination")
+worms = CompanionAnimal("Worms", "Aerate the soil")
+ladybugs = CompanionAnimal("Ladybugs", "Eat harmful pests")
+frogs = CompanionAnimal("Frogs", "Control insect population")
+squirrels = CompanionAnimal("Squirrels", "Plant trees by burying nuts")
+
+animals = [bees, raccoons, cats, dogs, birds, butterflies, worms, ladybugs, frogs, squirrels]
+for animal in animals:
+    print(animal.interact())

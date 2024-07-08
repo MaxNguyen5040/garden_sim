@@ -6,17 +6,17 @@ class Item:
         self.price = price
 
 class Shopkeeper:
-    def __init__(self, name):
+    def __init__(self, name, inventory):
         self.name = name
-        self.inventory = {}
+        self.inventory = inventory
+        self.market = Market()
 
-    def add_item(self, item, price):
-        self.inventory[item.name] = Item(item.name, price)
+    def display_prices(self):
+        prices = self.market.get_prices()
+        print(f"{self.name}'s Shop Prices: {prices}")
 
-    def sell_item(self, item_name):
-        if item_name in self.inventory:
-            return self.inventory.pop(item_name)
-        return None
+    def apply_market_event(self):
+        self.market.apply_price_event()
 
 class Marketplace:
     def __init__(self):

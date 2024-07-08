@@ -1,15 +1,19 @@
 from events import random_event
+from quests import quest_list
 
 class GardenSim:
     def __init__(self):
         self.garden = Garden()
         self.player = Player()
+        self.quests = quest_list()
 
     def start_game(self):
         while True:
             self.display_menu()
             choice = input("Choose an action: ")
             self.handle_choice(choice)
+            for quest in self.quests:
+                quest.check_completion(self.garden, self.player)
             if random.random() < 0.3:  # 30% chance of an event
                 event = random_event()
                 event.apply(self.garden)

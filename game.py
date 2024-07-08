@@ -1,11 +1,14 @@
 from events import random_event
 from quests import quest_list
+from trading import Trader
 
 class GardenSim:
     def __init__(self):
         self.garden = Garden()
         self.player = Player()
         self.quests = quest_list()
+        self.trader = Trader()
+
 
     def start_game(self):
         while True:
@@ -30,22 +33,24 @@ class GardenSim:
         print("7. Exit")
 
     def handle_choice(self, choice):
-        if choice == "1":
+        if choice == "plant":
             self.player.plant(self.garden)
-        elif choice == "2":
+        elif choice == "water":
             self.player.water(self.garden)
-        elif choice == "3":
+        elif choice == "fertilize":
+            self.player.fertilize(self.garden)
+        elif choice == "harvest":
             self.player.harvest(self.garden)
-        elif choice == "4":
+        elif choice == "check resources":
             self.player.check_resources()
-        elif choice == "5":
-            self.save_game()
-        elif choice == "6":
-            self.load_game()
-        elif choice == "7":
-            exit()
-        else:
-            print("Invalid choice.")
+        elif choice == "buy":
+            item = input("Enter item to buy: ")
+            amount = int(input("Enter amount to buy: "))
+            self.trader.buy(self.player, item, amount)
+        elif choice == "sell":
+            item = input("Enter item to sell: ")
+            amount = int(input("Enter amount to sell: "))
+            self.trader.sell(self.player, item, amount)
 
     def save_game(self):
         save_game(self.garden, self.player)

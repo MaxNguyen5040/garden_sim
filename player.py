@@ -3,8 +3,17 @@ from inventory import Inventory
 class Player:
     def __init__(self):
         self.inventory = Inventory()
-        self.skills = {"gardening": 1, "watering": 1, "harvesting": 1}
+        self.skills = {"gardening": 1, "watering": 1, "harvesting": 1, "healing": 1}
         self.experience = 0
+
+    def cure(self, plant):
+        if self.inventory.items["medicine"] > 0:
+            plant.cure_disease()
+            self.inventory.remove_item("medicine", 1)
+            self.gain_experience(15)
+            print(f"Cured {plant.name}.")
+        else:
+            print("No medicine left.")
 
     def plant(self, garden):
         plant_name = input("Enter plant name: ")

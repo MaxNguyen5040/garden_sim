@@ -18,5 +18,6 @@ class Garden:
 
     def harvest_plants(self):
         ready_plants = [plant for plant in self.plants if plant.is_ready_for_harvest()]
+        harvested_amount = sum(plant.yield_amount for plant in ready_plants)
         self.plants = [plant for plant in self.plants if not plant.is_ready_for_harvest()]
-        return len(ready_plants)
+        return harvested_amount

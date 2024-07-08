@@ -1,6 +1,8 @@
 from events import random_event
 from quests import quest_list
 from trading import Trader
+from weather import Weather
+import random 
 
 class GardenSim:
     def __init__(self):
@@ -8,6 +10,7 @@ class GardenSim:
         self.player = Player()
         self.quests = quest_list()
         self.trader = Trader()
+        self.weather = Weather()
 
 
     def start_game(self):
@@ -17,10 +20,13 @@ class GardenSim:
             self.handle_choice(choice)
             for quest in self.quests:
                 quest.check_completion(self.garden, self.player)
-            if random.random() < 0.3:  # 30% chance of an event
+            if random.random() < 0.3:
                 event = random_event()
                 event.apply(self.garden)
                 print(f"Event: {event.name}")
+            self.weather.change_weather()
+            self.weather.affect_garden(self.garden)
+            print(f"Weather: {self.weather.current_weather}")
 
 
     def display_menu(self):

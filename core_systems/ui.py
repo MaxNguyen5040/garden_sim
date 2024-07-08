@@ -9,6 +9,12 @@ class GameUI:
         self.root = Tk()
         self.root.title("Garden Sim Game")
 
+        self.button_save_game = Button(self.root, text="Save Game", command=self.save_game)
+        self.button_save_game.pack()
+
+        self.button_load_game = Button(self.root, text="Load Game", command=self.load_game)
+        self.button_load_game.pack()
+
         self.label_name = Label(self.root, text=f"Player: {self.player.name}")
         self.label_name.pack()
 
@@ -77,6 +83,15 @@ class GameUI:
     def sell_item(self):
         self.player.add_money(20)
         self.update_stats()
+
+    def save_game(self):
+        self.player.save_stats()
+        print("Game saved successfully!")
+
+    def load_game(self):
+        self.player.load_stats()
+        self.update_stats()
+        print("Game loaded successfully!")
 
 if __name__ == "__main__":
     player = PlayerStats("Player1")

@@ -1,3 +1,5 @@
+import json
+
 class PlayerStats:
     def __init__(self, name):
         self.name = name
@@ -38,3 +40,27 @@ class PlayerStats:
     def collect_item(self):
         self.items_collected += 1
         self.add_experience(5)
+
+    def save_stats(self, filename="player_stats.json"):
+        data = {
+            "name": self.name,
+            "level": self.level,
+            "experience": self.experience,
+            "money": self.money,
+            "crops_grown": self.crops_grown,
+            "animals_raised": self.animals_raised,
+            "items_collected": self.items_collected
+        }
+        with open(filename, 'w') as f:
+            json.dump(data, f)
+
+    def load_stats(self, filename="player_stats.json"):
+        with open(filename, 'r') as f:
+            data = json.load(f)
+        self.name = data["name"]
+        self.level = data["level"]
+        self.experience = data["experience"]
+        self.money = data["money"]
+        self.crops_grown = data["crops_grown"]
+        self.animals_raised = data["animals_raised"]
+        self.items_collected = data["items_collected"]

@@ -1,20 +1,5 @@
 import random
 
-# Define possible NPC behaviors
-possible_behaviors = {
-    "Boost plants in garden": lambda npc, garden: npc.boost_plants(garden),
-    "Steal items from inventory": lambda npc, player: npc.steal_items(player),
-    "Sell items to player": lambda npc, player: npc.sell_items(player),
-    "Provide quest or task": lambda npc, player: npc.provide_quest(player),
-    "Trade items with player": lambda npc, player: npc.trade_items(player),
-    "Offer advice or information": lambda npc, player, garden: npc.offer_advice(player, garden),
-    "Attack player or garden": lambda npc, player, garden: npc.attack(player, garden),
-    "Heal player or garden": lambda npc, player, garden: npc.heal(player, garden),
-    "Influence environment": lambda npc, garden: npc.influence_environment(garden),
-    "Change game state": lambda npc, player, garden: npc.change_game_state(player, garden)
-}
-
-# NPC class definition
 class NPC:
     def __init__(self, name, behaviors):
         self.name = name
@@ -61,12 +46,37 @@ class NPC:
 player = Player("Player1")
 garden = Garden()
 
-# Example NPC instances with dynamic behaviors
-npc1 = NPC("Alice", ["Boost plants in garden", "Offer advice or information"])
-npc2 = NPC("Bob", ["Steal items from inventory", "Attack player or garden"])
-npc3 = NPC("Charlie", ["Sell items to player", "Provide quest or task"])
-npc4 = NPC("Diana", ["Provide quest or task", "Influence environment"])
-npc5 = NPC("Eve", ["Trade items with player", "Heal player or garden"])
+npcs = [
+    npc1 = NPC("Alice", {
+    "06:00": "Boost plants in garden",
+    "12:00": "Offer advice or information",
+    "18:00": "Boost plants in garden"
+    })
+
+    npc2 = NPC("Bob", {
+        "08:00": "Steal items from inventory",
+        "14:00": "Attack player or garden",
+        "20:00": "Steal items from inventory"
+    })
+
+    npc3 = NPC("Charlie", {
+        "09:00": "Sell items to player",
+        "13:00": "Provide quest or task",
+        "17:00": "Sell items to player"
+    })
+
+    npc4 = NPC("Diana", {
+        "10:00": "Provide quest or task",
+        "16:00": "Influence environment",
+        "22:00": "Provide quest or task"
+    })
+
+    npc5 = NPC("Eve", {
+        "07:00": "Trade items with player",
+        "15:00": "Heal player or garden",
+        "19:00": "Trade items with player"
+    })
+    ]
 
 # Perform actions for each NPC
 for npc in [npc1, npc2, npc3, npc4, npc5]:

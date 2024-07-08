@@ -17,19 +17,52 @@ class Shopkeeper:
 
     def apply_market_event(self):
         self.market.apply_price_event()
-
+        
 class Marketplace:
     def __init__(self):
-        self.shopkeepers = {}
+        self.seed_shop = {
+            "Carrot Seeds": 10,
+            "Tomato Seeds": 12,
+            "Lettuce Seeds": 8
+        }
+        self.animal_shop = {
+            "Chickens": 50,
+            "Cows": 300,
+            "Pigs": 200
+        }
+        self.inventory = {
+            "Carrot Seeds": 0,
+            "Tomato Seeds": 0,
+            "Lettuce Seeds": 0,
+            "Chickens": 0,
+            "Cows": 0,
+            "Pigs": 0
+        }
+        self.money = 1000  # Starting money
 
-    def add_shopkeeper(self, shopkeeper):
-        self.shopkeepers[shopkeeper.name] = shopkeeper
+    def buy_item(self, shop, item, quantity):
+        if item in shop and shop[item] * quantity <= self.money:
+            self.money -= shop[item] * quantity
+            self.inventory[item] += quantity
+            return f"Bought {quantity} of {item}"
+        else:
+            return "Not enough money or item not available"
 
-    def buy_item(self, shopkeeper_name, item_name):
-        if shopkeeper_name in self.shopkeepers:
-            shopkeeper = self.shopkeepers[shopkeeper_name]
-            return shopkeeper.sell_item(item_name)
-        return None
+    def sell_item(self, item, quantity):
+        if item in self.inventory and self.inventory[item] >= quantity:
+            price = random.uniform(0.8, 1.2) * (self.seed_shop.get(item) or self.animal_shop.get(item))
+            self.money += price * quantity
+            self.inventory[item] -= quantity
+            return f"Sold {quantity} of {item}"
+        else:
+            return "Not enough items in inventory"
+
+    def price_shock(self):
+        for item in self.seed_shop:
+            self.seed_shop[item] *= random.uniform(0.5, 1.5)
+        for item in self.animal_shop:
+            self.animal_shop[item] *= random.uniform(0.5, 1.5)
+        return "Prices have been updated due to market conditions!"
 
 # Create shopkeepers and items with random prices
 def generate_random_price(base_price):

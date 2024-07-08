@@ -1,3 +1,5 @@
+from events import random_event
+
 class GardenSim:
     def __init__(self):
         self.garden = Garden()
@@ -8,6 +10,11 @@ class GardenSim:
             self.display_menu()
             choice = input("Choose an action: ")
             self.handle_choice(choice)
+            if random.random() < 0.3:  # 30% chance of an event
+                event = random_event()
+                event.apply(self.garden)
+                print(f"Event: {event.name}")
+
 
     def display_menu(self):
         print("1. Plant")

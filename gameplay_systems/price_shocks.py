@@ -25,6 +25,34 @@ class MarketGoods:
             PriceEvent("Festive Season", 1.2)
         ]
 
+    def random_event(self):
+        event = random.choice(self.events)
+        return event.effect()
+
+    def random_shipment(self):
+        item = random.choice(list(self.seed_shop.keys()) + list(self.animal_shop.keys()))
+        quantity = random.randint(1, 10)
+        self.inventory[item] += quantity
+        return f"A random shipment has arrived! You received {quantity} of {item}"
+
+    def treasure_cache(self):
+        money_found = random.randint(50, 200)
+        self.money += money_found
+        return f"You found a treasure cache! You received ${money_found}"
+
+    def government_shipment(self):
+        item = random.choice(list(self.seed_shop.keys()) + list(self.animal_shop.keys()))
+        quantity = random.randint(5, 15)
+        self.inventory[item] += quantity
+        return f"A government shipment has arrived! You received {quantity} of {item}"
+
+    def market_crash(self):
+        for item in self.seed_shop:
+            self.seed_shop[item] *= random.uniform(0.1, 0.5)
+        for item in self.animal_shop:
+            self.animal_shop[item] *= random.uniform(0.1, 0.5)
+        return "Market crash! Prices have dropped significantly."
+
     def apply_price_event(self):
         event = random.choice(self.price_events)
         for item in self.prices:

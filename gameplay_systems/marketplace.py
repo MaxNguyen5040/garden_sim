@@ -17,7 +17,7 @@ class Shopkeeper:
 
     def apply_market_event(self):
         self.market.apply_price_event()
-        
+
 class Marketplace:
     def __init__(self):
         self.seed_shop = {
@@ -107,6 +107,15 @@ if item_to_sell:
     print(f"Sold {item_to_sell.name} for {item_to_sell.price} coins.")
 else:
     print("Failed to sell item.")
+
+tree_shop = Shopkeeper("Tree Shop")
+foliage_shop = Shopkeeper("Foliage Shop")
+
+tree_sapling = Tree("Oak Tree", "Tree")
+foliage_plant = Foliage("Fern", "Foliage")
+
+tree_shop.sell_plant(tree_sapling)
+foliage_shop.sell_plant(foliage_plant)
 
 # Example usage: Checking inventory after transactions
 print("Seed Shop Inventory:", [item.name for item in seed_shopkeeper.inventory.values()])

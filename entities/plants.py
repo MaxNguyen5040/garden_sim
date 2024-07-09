@@ -1,17 +1,31 @@
 class Plant:
     def __init__(self, name, growth_rate, yield_amount):
         self.name = name
-        self.growth_stage = 0
-        self.max_growth_stage = 5
-        self.growth_rate = growth_rate
-        self.yield_amount = yield_amount
-        self.disease = None
-        self.special_ability = self.get_special_ability()
+        self.description = description
+        self.growth_time = growth_time
+        self.water_needed = 0  # Placeholder for water needed
+        self.sunlight_needed = 0  # Placeholder for sunlight needed
+        self.has_flowers = False
+        self.has_fruits = False
+        self.is_harvestable = False
+        self.is_dead = False
+        self.is_watered = False
+        self.is_sunlit = False
+
+
+    def breed(self, partner_plant):
+        offspring_name = f"{self.name}-{partner_plant.name}"
+        offspring_description = f"A hybrid of {self.name} and {partner_plant.name}"
+        offspring_growth_time = (self.growth_time + partner_plant.growth_time) // 2
+        return Plant(offspring_name, offspring_description, offspring_growth_time)
 
     def grow(self):
-        if self.growth_stage < self.max_growth_stage:
-            self.growth_stage += self.growth_rate
-            self.check_for_disease()
+        self.water_needed += 1
+        self.sunlight_needed += 1
+        if self.water_needed >= 3 and self.sunlight_needed >= 3:
+            self.is_harvestable = True
+        elif self.water_needed >= 1 and self.sunlight_needed >= 1:
+            self.has_flowers = True
 
     def is_ready_for_harvest(self):
         return self.growth_stage >= self.max_growth_stage and self.disease is None
@@ -34,3 +48,13 @@ class Plant:
 
     def cure_disease(self):
         self.disease = None
+
+plants = []
+
+plants.extend([
+    Plant("Sunflower", "A bright and cheerful flower", 6),
+    Plant("Apple Tree", "Produces delicious apples", 12),
+    Plant("Cactus", "A desert plant with spines", 8),
+    Plant("Orchid", "A delicate and exotic flower", 7),
+    Plant("Maple Tree", "Known for its colorful autumn leaves", 15)
+])

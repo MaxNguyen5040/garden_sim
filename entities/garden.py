@@ -18,6 +18,18 @@ class Garden:
         self.insects.extend([ladybug, bee])
         print("Beneficial insects attracted to the garden.")
 
+    def add_animal(self, animal):
+        self.animals.append(animal)
+        self.check_symbiosis()
+
+    def check_biodiversity(self):
+        if len(set([plant.species for plant in self.plants])) > 5:
+            tooltip_biodiversity.display()
+
+    def check_symbiosis(self):
+        if any(animal for animal in self.animals if animal.role == "pollinator"):
+            tooltip_symbiosis.display()
+
     def simulate_day(self):
         for plant in self.plants:
             plant.grow()

@@ -19,6 +19,20 @@ tooltip_food_web = Tooltip(
     "A food web is a system of interlocking and interdependent food chains."
 )
 
+tooltip_photosynthesis = Tooltip(
+    "Photosynthesis",
+    "Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods with the help of chlorophyll."
+)
+tooltip_pollination = Tooltip(
+    "Pollination",
+    "Pollination is the transfer of pollen from the male parts to the female parts of a flower, enabling fertilization and the production of seeds."
+)
+tooltip_decomposition = Tooltip(
+    "Decomposition",
+    "Decomposition is the process by which organic substances are broken down into simpler organic matter, contributing to the nutrient cycle."
+)
+
+
 tooltip_biodiversity.display()
 tooltip_symbiosis.display()
 tooltip_food_web.display()

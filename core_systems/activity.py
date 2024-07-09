@@ -20,6 +20,19 @@ activity_food_web = Activity(
     "Unlock an educational badge."
 )
 
+activity_photosynthesis = Activity(
+    "Grow a plant under different light conditions and observe the changes.",
+    "Unlock a new plant species."
+)
+activity_pollination = Activity(
+    "Introduce different pollinators and observe their effects on plant reproduction.",
+    "Unlock a new animal companion."
+)
+activity_decomposition = Activity(
+    "Create a compost bin and observe the decomposition process.",
+    "Gain a nutrient boost for your plants."
+)
+
 activity_biodiversity.complete()
 activity_symbiosis.complete()
 activity_food_web.complete()

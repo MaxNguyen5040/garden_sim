@@ -24,3 +24,4 @@ plot2 = Plot(size="Medium", terrain_type="Forest", challenges=["Limited sunlight
              opportunities=["Rich biodiversity", "Special plants that thrive in shade"])
 plot3 = Plot(size="Large", terrain_type="Desert", challenges=["Water scarcity", "Extreme temperatures"],
              opportunities=["Cactus garden", "Unique desert flora"])
+

@@ -10,20 +10,18 @@ class Competition:
         print(f"{player} has entered the {self.name}!")
 
     def announce_winner(self):
-        # Logic to determine and announce the winner based on criteria
         winner = self.determine_winner()
         if winner:
             print(f"The winner of the {self.name} is {winner}!")
+            self.give_rewards(winner)
         else:
             print(f"No winner determined for the {self.name}.")
 
-    def determine_winner(self):
-        # Placeholder logic to determine the winner based on criteria
-        # Implement your own judging algorithm here
-        if self.participants:
-            return self.participants[0]
+    def give_rewards(self, winner):
+        if winner in self.rewards:
+            print(f"{winner} receives {self.rewards[winner]} as a reward!")
         else:
-            return None
+            print(f"No specific reward for {winner}.")
 
 competition1 = Competition("Beauty Contest", "beauty", ["Flower Arrangement", "Garden Design"])
 competition1.add_participant("Player1")

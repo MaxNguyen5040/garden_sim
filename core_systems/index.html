@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Garden Sim</title>
+    <script>
+        function fetchSoilQuality() {
+            fetch('/soil')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('soil-quality').innerText = 'Soil Nutrient Levels: ' + data.nutrient_levels;
+                });
+        }
+
+        function addFertilizer() {
+            const amount = document.getElementById('fertilizer-amount').value;
+            fetch('/add_fertilizer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ amount: parseInt(amount) }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                fetchSoilQuality();
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchSoilQuality();
+        });
+    </script>
+</head>
+<body>
+    <h1>Garden Sim</h1>
+    <div id="soil-quality"></div>
+    <input type="number" id="fertilizer-amount" placeholder="Fertilizer Amount">
+    <button onclick="addFertilizer()">Add Fertilizer</button>
+</body>
+</html>

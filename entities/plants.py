@@ -12,20 +12,19 @@ class Plant:
         self.is_watered = False
         self.is_sunlit = False
 
-
     def breed(self, partner_plant):
         offspring_name = f"{self.name}-{partner_plant.name}"
         offspring_description = f"A hybrid of {self.name} and {partner_plant.name}"
         offspring_growth_time = (self.growth_time + partner_plant.growth_time) // 2
         return Plant(offspring_name, offspring_description, offspring_growth_time)
-
-    def grow(self):
-        self.water_needed += 1
-        self.sunlight_needed += 1
-        if self.water_needed >= 3 and self.sunlight_needed >= 3:
-            self.is_harvestable = True
-        elif self.water_needed >= 1 and self.sunlight_needed >= 1:
-            self.has_flowers = True
+    
+    def grow(self, soil):
+        if soil.get_nutrient_levels() > 30:
+            self.size += self.growth_rate
+        elif soil.get_nutrient_levels() > 10:
+            self.size += self.growth_rate / 2
+        else:
+            self.size += self.growth_rate / 4
 
     def is_ready_for_harvest(self):
         return self.growth_stage >= self.max_growth_stage and self.disease is None

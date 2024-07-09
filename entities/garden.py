@@ -1,23 +1,25 @@
 class Garden:
     def __init__(self):
         self.plants = []
+        self.insects = [ladybug, bee, aphid, beetle]
 
     def add_plant(self, plant):
         self.plants.append(plant)
+        print(f"Added {plant.name} to the garden!")
 
-    def water_plants(self):
+    def remove_insect(self, insect):
+        if insect in self.insects:
+            self.insects.remove(insect)
+            print(f"{insect.name} removed from the garden.")
+        else:
+            print(f"{insect.name} not found in the garden.")
+
+    def attract_beneficial_insects(self):
+        self.insects.extend([ladybug, bee])
+        print("Beneficial insects attracted to the garden.")
+
+    def simulate_day(self):
         for plant in self.plants:
             plant.grow()
-            plant.apply_special_ability()
-
-    def fertilize_plants(self):
-        for plant in self.plants:
-            plant.grow()
-            plant.grow()
-            plant.apply_special_ability()
-
-    def harvest_plants(self):
-        ready_plants = [plant for plant in self.plants if plant.is_ready_for_harvest()]
-        harvested_amount = sum(plant.yield_amount for plant in ready_plants)
-        self.plants = [plant for plant in self.plants if not plant.is_ready_for_harvest()]
-        return harvested_amount
+            insect = random.choice(self.insects)
+            insect.interact_with_plant(plant)

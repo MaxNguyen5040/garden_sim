@@ -30,6 +30,22 @@ class Plant:
     def is_ready_for_harvest(self):
         return self.growth_stage >= self.max_growth_stage and self.disease is None
 
+    def use_insecticide(self, garden, insect):
+        if self.inventory["insecticide"] > 0:
+            self.inventory["insecticide"] -= 1
+            garden.remove_insect(insect)
+            print(f"{self.name} used insecticide on {insect.name}.")
+        else:
+            print("No insecticide left!")
+
+    def use_nectar(self, garden):
+        if self.inventory["nectar"] > 0:
+            self.inventory["nectar"] -= 1
+            garden.attract_beneficial_insects()
+            print(f"{self.name} used nectar to attract beneficial insects.")
+        else:
+            print("No nectar left!")
+
     def get_special_ability(self):
         abilities = ["fast_growth", "resistant", "high_yield"]
         return random.choice(abilities)
